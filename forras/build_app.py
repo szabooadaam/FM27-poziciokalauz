@@ -9,7 +9,7 @@ from roles_data import R, GROUPS
 from tactics_data import COMBOS, ATT, DEF
 
 E = html.escape
-VERSION = '1.1'
+VERSION = '1.2'
 
 # ---------- pályarajzok ----------
 def pitch_lines(w=68, h=105):
@@ -82,9 +82,9 @@ def role_card(r):
     ph = '<span class="ph ph-ip">Labdával</span>' if r['phase'] == 'IP' else '<span class="ph ph-oop">Labda nélkül</span>'
     combo = ''
     if r['good']:
-        combo += f'<div class="combo"><h5>Jól megy vele</h5><ul>{chips(r["good"])}</ul></div>'
+        combo += f'<div class="combo"><h5>Jól kombinálható</h5><ul>{chips(r["good"])}</ul></div>'
     if r['avoid']:
-        combo += f'<div class="combo bad"><h5>Kerüld mellé</h5><ul>{chips(r["avoid"])}</ul></div>'
+        combo += f'<div class="combo bad"><h5>Kerüld</h5><ul>{chips(r["avoid"])}</ul></div>'
     return f'''<article class="group role" id="r{r["uid"]}">
 <div class="role-top"><div class="mini">{mini_pitch(r, r["uid"])}</div>
 <div class="role-head"><span class="abbr">{E(r["abbr"])}</span><h3>{E(r["name"])}</h3><p class="hu">{E(r["hu"])}</p>{ph}</div></div>
@@ -189,11 +189,15 @@ SOURCES = '''<div class="group-label">A JÁTÉKBÓL ÉS A FUTBALL MAPPÁBÓL</di
 <div class="group pad text"><p>FM27 Pozíciókalauz ''' + VERSION + ''' · Készítette: Szabó Ádám</p>
 <p class="note">Összeállítva 2026. november 6-án. A kulcstulajdonságok javaslatok; a játékban a szerepkör kiválasztásakor kiemelt tulajdonságok a mérvadók. A szerepkörök és a leírások az FM27 nyelvi fájlból származnak.</p></div>'''
 
+ABOUT = '''<div class="group-label">NÉVJEGY</div>
+<div class="group pad text"><p>FM27 Pozíciókalauz ''' + VERSION + ''' · Készítette: Szabó Ádám</p>
+<p class="note">A szerepkörök és a leírások az FM27 nyelvi fájlból, a Futball mappa könyveiből és a Sports Interactive, az FM Scout és a Passion4FM oldalairól származnak. A kulcstulajdonságok javaslatok; a játékban a szerepkör kiválasztásakor kiemelt tulajdonságok a mérvadók.</p></div>'''
+
 def tactic_page(t, key):
     roles = ''.join(f'<div class="tr-row"><div class="tr-pos">{E(a)}</div><div class="tr-roles"><span><i class="ph ph-ip">IP</i>{E(b)}</span><span><i class="ph ph-oop">OOP</i>{E(c)}</span></div><p>{E(d)}</p></div>' for a, b, c, d in t['roles'])
     steps = ''.join(f'<li>{E(x)}</li>' for x in t['steps'])
     instr = ''.join(f'<div class="kv"><span class="k">{E(a)}</span><span class="v">{E(b)}</span></div>' for a, b in t['instr'])
-    return f'''<h2 class="t-title">{E(t["title"])}</h2>
+    return f'''<h2 class="t-title first">{E(t["title"])}</h2>
 <div class="seg2" data-fig="{key}" role="tablist" aria-label="Alakzat"><span class="seg2-thumb"></span>
 <button type="button" role="tab" data-show="ip" aria-selected="true">Labdával</button><button type="button" role="tab" data-show="oop" aria-selected="false">Labda nélkül</button></div>
 <div class="group tfig" id="fig-{key}"><div class="tf tf-ip">{tactic_svg(t, 'ip', key+'i')}</div><div class="tf tf-oop" hidden>{tactic_svg(t, 'oop', key+'o')}</div>
@@ -213,7 +217,7 @@ ICONS = {
     'mid': '<rect x="2.5" y="5" width="19" height="14" rx="1.6"/><path d="M12 5v14"/><circle cx="12" cy="12" r="2.9"/><path class="thin" d="M2.5 9.3h2.6v5.4H2.5M21.5 9.3h-2.6v5.4h2.6"/>',
     'att': '<defs><mask id="mAtt"><rect width="24" height="24" fill="#fff"/><circle cx="15.4" cy="10.6" r="5" fill="#000"/></mask></defs><path d="M2 20V5.5h20V20"/><path class="thin" mask="url(#mAtt)" d="M2 12.8h20M8.6 5.5V20M15.4 5.5V20"/><circle cx="15.4" cy="10.6" r="3.9"/><path class="thin" d="M15.4 9.1l1.43 1.04-.55 1.68h-1.76l-.55-1.68z"/>',
     'form': '<rect x="4.5" y="2.5" width="15" height="19" rx="1.6"/><path class="thin" d="M4.5 12h15"/><circle class="f" cx="12" cy="18.6" r="1.25"/><circle class="f" cx="8.4" cy="15.2" r="1.25"/><circle class="f" cx="15.6" cy="15.2" r="1.25"/><circle class="f" cx="12" cy="9.6" r="1.25"/><circle class="f" cx="8.2" cy="6.2" r="1.25"/><circle class="f" cx="15.8" cy="6.2" r="1.25"/>',
-    'tac': '<rect x="2.5" y="3.5" width="19" height="14" rx="2"/><path d="M8.5 21l1.6-3.5M15.5 21l-1.6-3.5"/><path class="thin" d="M5.6 6.6l2.6 2.6M8.2 6.6L5.6 9.2"/><circle class="thin" cx="17.4" cy="13.6" r="1.7"/><path class="thin" d="M8.4 12.2c1.8 2.6 4.4 2.9 6.6 1.3M15 13.5l-.2-2M15 13.5l-2 .3"/>',
+    'tac': '<circle cx="12" cy="12" r="9.3"/><path d="M12 10.8v6"/><circle class="f" cx="12" cy="7.4" r="1.3"/>',
 }
 
 def tab_section(key, title, pages):
@@ -229,10 +233,10 @@ def tab_section(key, title, pages):
 sections = []
 for tkey, tname, pages in TABDEF:
     sections.append(tab_section(tkey, tname, [(lbl, group_page(g)) for g, lbl in pages]))
-sections.append(tab_section('form', 'Felállás', [('Támadó', FM27_NOTE + tactic_page(ATT, 'att')), ('Védekező', FM27_NOTE + tactic_page(DEF, 'def'))]))
-sections.append(tab_section('tac', 'Taktika', [('Alapok', BASICS), ('Párosítások', PAIRS), ('Gyorslista', quick_list()), ('Források', SOURCES)]))
+sections.append(tab_section('form', 'Felállás', [('Támadó', tactic_page(ATT, 'att')), ('Védekező', tactic_page(DEF, 'def'))]))
+sections.append(tab_section('tac', 'Infó', [('Alapok', BASICS + ABOUT), ('Párosítások', PAIRS), ('Gyorslista', quick_list())]))
 
-TABBAR = [('def', 'Védelem'), ('mid', 'Középpálya'), ('att', 'Támadás'), ('form', 'Felállás'), ('tac', 'Taktika')]
+TABBAR = [('def', 'Védelem'), ('mid', 'Középpálya'), ('att', 'Támadás'), ('form', 'Felállás'), ('tac', 'Infó')]
 bar = ''.join(f'<button type="button" data-go="{k}" aria-label="{E(n)}"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONS[k]}</svg><span class="lbl">{E(n)}</span></button>' for k, n in TABBAR)
 
 SPLASH = [(440, 956, 3, '1320x2868'), (402, 874, 3, '1206x2622'), (420, 912, 3, '1260x2736'), (430, 932, 3, '1290x2796'),
@@ -260,7 +264,7 @@ doc = f'''<!doctype html>
 {splash_links}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700&amp;display=swap">
 <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -268,7 +272,7 @@ doc = f'''<!doctype html>
 <div class="app" id="app">
 {''.join(sections)}
 <div class="statusbar-scrim" aria-hidden="true"></div>
-<nav class="tabbar glass" id="tabbar" aria-label="Fő navigáció"><span class="lens" id="lens"></span>{bar}</nav>
+<nav class="tabbar" id="tabbar" aria-label="Fő navigáció"><span class="lens" id="lens"></span>{bar}</nav>
 </div>
 <script src="js/app.js"></script>
 </body>

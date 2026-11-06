@@ -2,7 +2,7 @@
  * Ha van net, mindig a friss fájlokat tölti le (így a kezdőképernyős app is frissül),
  * net nélkül a tárolt példányt mutatja. Új kiadásnál érdemes a VERSION-t is növelni.
  * A címbetűtípus (Google Fonts) az első letöltés után szintén eltárolódik. */
-const VERSION = 'fm27-poziciokalauz-1.1-2';
+const VERSION = 'fm27-poziciokalauz-1.2-1';
 const FONTS = 'fm27-poziciokalauz-fonts';
 const FILES = [
   './',
@@ -10,6 +10,8 @@ const FILES = [
   './manifest.webmanifest',
   './css/app.css',
   './js/app.js',
+  './fonts/inter-latin-wght-normal.woff2',
+  './fonts/inter-latin-ext-wght-normal.woff2',
   './icons/icon-32.png',
   './icons/icon-180.png',
   './icons/icon-192.png',

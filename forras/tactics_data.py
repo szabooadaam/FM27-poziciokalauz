@@ -131,7 +131,7 @@ ATT = {'title': 'Támadó felfogás: 4-3-3, labdával 3-2-5',
            ('Letámadás', 'gyakrabban; letámadási csapda a szél felé'),
            ('Átmenet labdavesztéskor', 'ellenpresszing'),
            ('Átmenet labdaszerzéskor', 'azonnali kontra, ha van tér, különben megtartás')],
- 'why': 'Ez a felállás az FM26 óta a legjobban kihasználja, hogy a labdás és a labda nélküli formáció külön állítható. Labdával a 3-2-5 '
+ 'why': 'Ez a felállás a legjobban kihasználja, hogy az FM27-ben a labdás és a labda nélküli formáció külön állítható. Labdával a 3-2-5 '
         'mind az öt támadósávot betölti, és közben hátul 3+1 játékos biztosít a kontrák ellen (a modern elitfutball rest-defence elve). '
         'Labda nélkül a 4-4-2-es letámadás két csatárral zárja az ellenfél középhátvédjeit, a szélsők a hátvédekre lépnek. A szerepek '
         'kiegészítik egymást: egy tartó (DLP/SDM), egy alkotó (MPM), egy futó (CHM); oldalanként egy szélességet adó és egy befelé mozgó '
